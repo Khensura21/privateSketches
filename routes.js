@@ -11,13 +11,14 @@ router.route("/sketches").get((req, res) => {
 
 //updates a sketch privacy field
 router.route("/sketches/:id").put((req, res) => {
-    //set id to parameter id
-    var id = req.params.id
-    //get privacy value from req body
-    var privacyValue = req.body.isPrivate
-    //find sketch and ONLY update privacy field
-    Sketch.findByIdAndUpdate({_id: id}, 
-        {$set: {isPrivate: privacyValue }
+    // //set id to parameter id
+    // var id = req.params.id
+    // //get privacy value from req body
+    // var privacyValue = req.body.isPrivate
+    // //find sketch and ONLY update privacy field
+    Sketch.findByIdAndUpdate(req.params.id, 
+        {
+            $set: {isPrivate: req.body.isPrivate}
     })
     .then(sketch =>{
         sketch.save()
